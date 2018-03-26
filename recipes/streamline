@@ -1,0 +1,14 @@
+  export AMBARI_HOST=$(hostname -f)
+  export CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
+/var/lib/ambari-server/resources/scripts/configs.py -l $AMBARI_HOST -t 8080 -n $CLUSTER_NAME -a set -c streamline-common -k registry.url -v http://$(/etc/ambari-agent/conf/public_hostname.sh):7788/api/v1
+/var/lib/ambari-server/resources/scripts/configs.py -l $AMBARI_HOST -t 8080 -n $CLUSTER_NAME -a set -c streamline-common -k streamline.dashboard.url -v http://$(/etc/ambari-agent/conf/public_hostname.sh):9987
+
+
+
+curl -u admin:admin -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Stop Streamline via REST"}, "Body": {"ServiceInfo": {"state": "INSTALLED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/STREAMLINE
+sleep 10
+curl -u admin:admin -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Starting Streamline via REST"}, "Body": {"ServiceInfo": {"state": "STARTED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/STREAMLINE
+sleep 10
+curl -u admin:admin -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Stop Storm via REST"}, "Body": {"ServiceInfo": {"state": "INSTALLED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/STORM
+sleep 40
+curl -u admin:admin -i -H 'X-Requested-By: ambari' -X PUT -d '{"RequestInfo": {"context" :"Starting Storm via REST"}, "Body": {"ServiceInfo": {"state": "STARTED"}}}' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/STORM

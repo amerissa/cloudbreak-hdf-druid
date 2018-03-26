@@ -1,0 +1,10 @@
+#!/bin/bash
+
+yum -y install mysql mysql-server
+service mysqld start
+
+mysqladmin -u root password password
+yum install -y mysql-connector-java
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+
+ambari-server install-mpack --mpack=http://ec2-34-212-116-75.us-west-2.compute.amazonaws.com:8888/hdf-ambari-mpack-3.0.3.0-6.tar.gz

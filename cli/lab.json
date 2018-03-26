@@ -1,0 +1,94 @@
+{  
+   "general":{  
+      "name":"",
+      "credentialName":"seaccount"
+   },
+   "placement":{  
+      "availabilityZone":"us-east-1a",
+      "region":"us-east-1"
+   },
+   "parameters":{  
+
+   },
+   "customDomain":{  
+      "clusterNameAsSubdomain":false,
+      "hostgroupNameAsHostname":false
+   },
+   "tags":{  
+      "userDefinedTags":{  
+
+      }
+   },
+   "instanceGroups":[  
+      {  
+         "nodeCount":1,
+         "group":"master",
+         "type":"GATEWAY",
+         "parameters":{  
+
+         },
+         "template":{  
+            "volumeCount":1,
+            "volumeSize":100,
+            "parameters":{  
+               "encrypted":false
+            },
+            "volumeType":"standard",
+            "instanceType":"m4.4xlarge"
+         },
+         "securityGroup":{  
+            "securityRules":[  
+               {  
+                  "subnet":"0.0.0.0/0",
+                  "ports":"1-65535",
+                  "protocol":"tcp"
+               }
+            ]
+         },
+         "recipeNames":[  
+            "hdfprep",
+            "streamline"
+         ],
+         "recoveryMode":"MANUAL"
+      }
+   ],
+   "stackAuthentication":{  
+      "publicKey":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLd23/vLmC7LBo0UTVTezx3GtLirwfEO5uuob+aFz0txV6a45XTrE7HY9MyfdHdBhpH75hi+ZIAR8ur8BYoV1+kumvYpHN2EpWJpoJlcw5t/jelV5qWZwDqAuBwX14NophbBx43t/xDMPH3s4j0zC3jvnkWJHHPpdYLwSIgVaAUXvemZ2DX6fYMckUr6xfipw7ern3oxiWsyYkR4LlLLatFxN0TjNhpyairMpOvku7YKGyMqRsWSHwsNpw3rKYRgmYj+Z5ZsQ+v/UdkFN/Ai338AX5kufTGxO94E1oGTlKIyXP9rVF4sBFa52jWYyn1adgR4CLgklic11bGt60HT7pXfURZHONUbtQWBPVmNBPmaiKW3L+3BnGDiX301aJIo+dod4bA3sHJ9IKmGt/jtxDJ9I4a1TfzCCco4Sv7hRhMB3rbpHl0B51BD5C9PT9WiwDNJSPVSToaCG1Qe6H7SvsZAUcZDjR62lb1h/HGbmjH9Dj0PxCnIwG+QHsQYPyTt9oha0Oi6coILXUjo4LgeOxBqZK+Wp+K8um4tFDaFa+l/pLvf9/Nbqxf09i5ytdL006RqmIVF2cfSl4EUPVHVPGcVJc4iSZBAU9HR6ZfUwv3ZHJ2q8ZpcJR7kevsdfalEaVp0VJZq/mFFS3dN2OovsUojthjWxBOyLCZzC3ts/j0w== cloudbreak.bnc@gmail.com"
+   },
+   "network":{  
+      "parameters":{  
+      "subnetId": "subnet-b00611d4",
+      "vpcId": "vpc-2a4dcc51"
+      }
+   },
+   "imageSettings":{  
+      "imageCatalog":"cloudbreak-default",
+      "imageId":"cab28152-f5e1-43e1-5107-9e7bbed33eef"
+   },
+   "cluster":{  
+      "emailNeeded":false,
+      "ambari":{  
+         "blueprintName":"datavore",
+         "enableSecurity":false,
+         "userName":"admin",
+         "password":"admin",
+         "ambariStackDetails":{  
+            "stack":"HDP",
+            "version":"2.6",
+            "stackRepoId":"HDP",
+            "enableGplRepo":false,
+            "verify":false,
+            "repositoryVersion":"2.6.3.0-235",
+            "versionDefinitionFileUrl":"http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.6.3.0/HDP-2.6.3.0-235.xml"
+         },
+         "ambariRepoDetailsJson":{  
+            "version":"2.6.0.0",
+            "baseUrl":"http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.6.0.0",
+            "gpgKeyUrl":"http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins"
+         },
+         "blueprintInputs":[  
+
+         ]
+      }
+   }
+}

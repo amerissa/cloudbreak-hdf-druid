@@ -1,0 +1,5 @@
+#create 50 clusters
+for i in {1..50}; do cb cluster create --cli-input-json lab.json --name datavorelab${i}; sleep 5; done
+#delete 50 clusters
+for i in {1..50}; do cb cluster delete --force  --name datavorelab${i}; sleep 5; done
+
